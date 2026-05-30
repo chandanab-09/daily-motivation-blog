@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Motivation Blog</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+html{scroll-behavior:smooth}
+.card:hover{transform:translateY(-6px);transition:0.3s ease;}
+a,button{cursor:pointer}
+.overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.55);
+  z-index:999;display:none;align-items:center;justify-content:center;
+}
+.overlay.open{display:flex;}
+.modal{
+  background:#fff;border-radius:16px;max-width:500px;width:92%;
+  position:relative;box-shadow:0 24px 64px rgba(0,0,0,0.25);
+  max-height:88vh;overflow-y:auto;
+}
+.modal-img{width:100%;height:200px;object-fit:cover;border-radius:16px 16px 0 0;display:block;}
+.modal-body{padding:24px 28px 28px;}
+.modal h3{font-size:22px;font-weight:700;margin-bottom:8px;color:#1a1a1a;}
+.modal p{font-size:15px;line-height:1.8;color:#555;white-space:pre-line;}
+.modal hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0;}
+.modal-close{
+  position:absolute;top:12px;right:14px;background:rgba(0,0,0,0.35);
+  border:none;font-size:18px;cursor:pointer;color:#fff;line-height:1;
+  border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;
+}
+.modal-close:hover{background:rgba(0,0,0,0.6);}
+.tag{
+  display:inline-block;background:#dcfce7;color:#15803d;
+  font-size:12px;font-weight:600;padding:4px 12px;
+  border-radius:999px;margin-bottom:12px;
+}
+</style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+<nav class="bg-white shadow-md sticky top-0 z-50">
+  <div class="container mx-auto flex justify-between items-center p-4">
+    <h1 class="text-2xl font-bold text-green-600">Daily Motivation</h1>
+    <ul class="flex gap-6 font-medium">
+      <li><button onclick="openNav('home')" class="hover:text-green-600">Home</button></li>
+      <li><button onclick="openNav('about')" class="hover:text-green-600">About</button></li>
+      <li><button onclick="openNav('categories')" class="hover:text-green-600">Categories</button></li>
+      <li><button onclick="openNav('contact')" class="hover:text-green-600">Contact</button></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="bg-green-600 text-white text-center py-16">
+  <h2 class="text-5xl font-bold mb-3">One Step at a Time!</h2>
+  <p class="text-xl">Simple thoughts to keep you moving forward every day.</p>
+</header>
+
+<main class="container mx-auto px-4 py-12">
+  <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+    <div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&q=80" class="w-full h-56 object-cover" alt="Keep Going">
+      <div class="p-6">
+        <h3 class="text-2xl font-semibold mb-3">Keep Going</h3>
+        <p class="text-gray-600 mb-4">A little boost every day to help you stay focused and keep crushing your goals—no fluff, just real motivation.</p>
+        <button onclick="openPost(0)" class="text-green-600 font-semibold hover:underline">Read More →</button>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=600&q=80" class="w-full h-56 object-cover" alt="Rise & Grind Daily">
+      <div class="p-6">
+        <h3 class="text-2xl font-semibold mb-3">Rise & Grind Daily</h3>
+        <p class="text-gray-600 mb-4">Simple tips and inspiration to kick-start your day and keep your hustle strong every morning.</p>
+        <button onclick="openPost(1)" class="text-green-600 font-semibold hover:underline">Read More →</button>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80" class="w-full h-56 object-cover" alt="Your Daily Dose of Drive">
+      <div class="p-6">
+        <h3 class="text-2xl font-semibold mb-3">Your Daily Dose of Drive</h3>
+        <p class="text-gray-600 mb-4">Short and powerful motivation to fuel your mindset and push you forward because every step counts.</p>
+        <button onclick="openPost(2)" class="text-green-600 font-semibold hover:underline">Read More →</button>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?w=600&q=80" class="w-full h-56 object-cover" alt="Small Steps, Big Wins">
+      <div class="p-6">
+        <h3 class="text-2xl font-semibold mb-3">Small Steps, Big Wins</h3>
+        <p class="text-gray-600 mb-4">Success is not about giant leaps. It is about showing up consistently and making progress every day.</p>
+        <button onclick="openPost(3)" class="text-green-600 font-semibold hover:underline">Read More →</button>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80" class="w-full h-56 object-cover" alt="Stay Hungry, Stay Humble">
+      <div class="p-6">
+        <h3 class="text-2xl font-semibold mb-3">Stay Hungry, Stay Humble</h3>
+        <p class="text-gray-600 mb-4">Let ambition drive you while staying grounded. Growth comes from learning, improving, and staying humble.</p>
+        <button onclick="openPost(4)" class="text-green-600 font-semibold hover:underline">Read More →</button>
+      </div>
+    </div>
+
+    <div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=600&q=80" class="w-full h-56 object-cover" alt="Your Mindset Is Your Superpower">
+      <div class="p-6">
+        <h3 class="text-2xl font-semibold mb-3">Your Mindset Is Your Superpower</h3>
+        <p class="text-gray-600 mb-4">The right mindset can turn obstacles into opportunities. Believe in yourself and move with purpose.</p>
+        <button onclick="openPost(5)" class="text-green-600 font-semibold hover:underline">Read More →</button>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="bg-white mt-10 shadow-inner p-6 text-center text-gray-500">
+  © 2025 Daily Motivation Blog. All Rights Reserved.
+</footer>
+
+<!-- MODAL OVERLAY -->
+<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+const posts = [
+  {
+    tag: "Mindset",
+    title: "Keep Going",
+    img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=700&q=80",
+    content: `Some days will be harder than others. You'll doubt yourself, feel tired, and wonder if it's worth it. But remember: the fact that you're still here, still trying, is itself a victory.
+
+Momentum builds one step at a time. The days you least feel like showing up are often the ones that matter most. Push through the resistance — not because it's easy, but because the version of you on the other side is worth it.
+
+Progress, not perfection, is the goal. Keep going.`
+  },
+  {
+    tag: "Daily Habits",
+    title: "Rise & Grind Daily",
+    img: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=700&q=80",
+    content: `Your morning routine sets the tone for everything that follows. Wake with intention — even 10 minutes of calm before checking your phone can reshape your entire day.
+
+Hydrate first. Breathe deeply. Write down three things you want to accomplish. The grind isn't always glamorous, but the discipline is what separates goals from results.
+
+Small, consistent morning wins compound into massive life changes over time. Own your mornings, own your day.`
+  },
+  {
+    tag: "Drive",
+    title: "Your Daily Dose of Drive",
+    img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=700&q=80",
+    content: `Drive isn't something you're born with — it's something you cultivate every single day. Feed it with purpose. Remind yourself why you started when the path gets difficult.
+
+Celebrate small wins. Each tiny step forward is proof that you're capable. Stack enough of those steps and the destination becomes inevitable.
+
+You don't need to feel motivated to take action. Take the action first — the motivation will follow.`
+  },
+  {
+    tag: "Consistency",
+    title: "Small Steps, Big Wins",
+    img: "https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?w=700&q=80",
+    content: `The myth of overnight success hides years of quiet, consistent effort. Kaizen — the Japanese philosophy of continuous small improvement — is the real secret behind lasting achievement.
+
+Just 1% better each day compounds into extraordinary results over a year. Don't wait for the perfect moment or the perfect conditions. The small step you take right now is the moment.
+
+Show up. Do the work. Repeat. That's the formula.`
+  },
+  {
+    tag: "Growth",
+    title: "Stay Hungry, Stay Humble",
+    img: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=700&q=80",
+    content: `Ambition without humility becomes arrogance. Humility without ambition becomes stagnation. The sweet spot is staying hungry for growth while remaining genuinely open to feedback, failure, and learning.
+
+The most successful people in any field share one trait: they never stop being students. They ask questions, admit mistakes, and treat every experience as a lesson.
+
+Let your drive push you forward. Let your humility keep you grounded. That balance is where real growth lives.`
+  },
+  {
+    tag: "Psychology",
+    title: "Your Mindset Is Your Superpower",
+    img: "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=700&q=80",
+    content: `Research by Carol Dweck showed that people with a growth mindset — who believe their abilities can be developed — consistently outperform those who believe talent is fixed.
+
+Challenges are not roadblocks; they are training. Every obstacle you face is quietly building the version of you that can handle more, do more, and become more.
+
+The right mindset doesn't eliminate difficulty. It transforms how you relate to it. Believe in your capacity to grow, and you already have your greatest superpower.`
+  }
+];
+
+const navData = {
+  home: {
+    tag: "Welcome",
+    title: "Welcome to Daily Motivation",
+    img: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=700&q=80",
+    content: `You're in the right place! Explore our latest motivational posts below. New content drops every day to keep you inspired, focused, and moving forward.
+
+Whether you're looking for a morning boost, a midday pick-me-up, or an evening reflection — we've got you covered.
+
+Bookmark this page and make it your daily starting point. Your best day is always ahead of you.`
+  },
+  about: {
+    tag: "Our Story",
+    title: "About Daily Motivation",
+    img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=700&q=80",
+    content: `Daily Motivation was founded on one simple belief: a few well-chosen words at the right moment can change the trajectory of your day — and your life.
+
+Our small team of writers and coaches curates bite-sized inspiration that's practical, honest, and human. No toxic positivity. No empty platitudes. Just real talk that moves you forward.
+
+We believe that motivation isn't a feeling you wait for — it's a practice you build. We're here to help you build it, one day at a time.`
+  },
+  categories: {
+    tag: "Browse",
+    title: "Explore Categories",
+    img: "https://images.unsplash.com/photo-1512314889357-e157c22f938d?w=700&q=80",
+    content: `Browse our content by theme:
+
+🧠  Mindset — rewiring how you think and see the world
+
+⏰  Daily Habits — the small routines that compound into big results
+
+⚡  Drive — staying motivated even when it gets tough
+
+🔄  Consistency — the art of showing up every single day
+
+🌱  Growth — learning from failure and levelling up
+
+🔬  Psychology — science-backed insights for peak performance
+
+More categories coming soon. Stay tuned!`
+  },
+  contact: {
+    tag: "Say Hello",
+    title: "Get in Touch",
+    img: "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=700&q=80",
+    content: `We'd love to hear from you! Whether you have a story to share, a topic you'd love us to cover, or just want to say hi — our inbox is always open.
+
+✉️  hello@dailymotivation.blog
+
+🐦  Twitter / X: @DailyMotivBlog
+
+📸  Instagram: @dailymotivation
+
+💼  LinkedIn: Daily Motivation Blog
+
+We read every message and aim to reply within 48 hours. Your feedback helps us grow and serve you better every day.`
+  }
+};
+
+function showModal(data) {
+  document.getElementById('modal-content').innerHTML = `
+    <img src="${data.img}" alt="${data.title}" class="modal-img">
+    <div class="modal-body">
+      <span class="tag">${data.tag}</span>
+      <h3>${data.title}</h3>
+      <hr>
+      <p>${data.content}</p>
+    </div>
+  `;
+  document.getElementById('overlay').classList.add('open');
+}
+
+function openPost(index) { showModal(posts[index]); }
+function openNav(key) { showModal(navData[key]); }
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('open');
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('overlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+</body>
+</html>
